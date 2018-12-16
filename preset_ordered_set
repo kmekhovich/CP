@@ -26,7 +26,7 @@ int main()
   ifstream cin("input.txt");
   ofstream cout("output.txt");
 #endif
-    //cin.tie(0);cout.tie(0);
+    cin.tie(0);cout.tie(0);
 
     ordered_set<int> f;
     int n;
