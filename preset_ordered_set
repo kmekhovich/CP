@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#define pb push_back
+#define all(c) c.begin(),c.end()
+using namespace std;
+using namespace __gnu_pbds;
+typedef long long ll;
+const ll INF64 = 1e18 + 1337;
+const int INF32 = 1e9 + 228;
+const int MOD = 1e9 + 7;
+template<typename T>
+using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template<typename T>
+int position(ordered_set<T> v, int a)
+{
+    int k = v.order_of_key(a);
+    if(k == 0 && *v.find_by_order(k) !=  a) return -1;
+    if(k == v.size()) return -1;
+    return k;
+}
+int main()
+{
+    ios_base::sync_with_stdio(0);
+#ifndef __WIN32
+  ifstream cin("input.txt");
+  ofstream cout("output.txt");
+#endif
+    //cin.tie(0);cout.tie(0);
+
+    ordered_set<int> f;
+    int n;
+    cin >> n;
+    for(int i = 0; i < n; i++)
+    {
+        int a;
+        cin >> a;
+        f.insert(a);
+    }
+    for(int i = 0; i < n; i++)
+    {
+        cout << *f.find_by_order(i) << "\n";
+    }
+    while(1)
+    {
+        int a;
+        cin >> a;
+        cout << position(f, a);
+    }
+
+
+
+#ifndef __WIN32
+  cin.close();
+  cout.close();
+#endif
+    return 0;
+}
