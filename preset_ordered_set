@@ -12,7 +12,7 @@ const int MOD = 1e9 + 7;
 template<typename T>
 using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 template<typename T>
-int position(ordered_set<T> v, int a)
+int position(ordered_set<T>& v, int a)
 {
     int k = v.order_of_key(a);
     if(k == 0 && *v.find_by_order(k) !=  a) return -1;
