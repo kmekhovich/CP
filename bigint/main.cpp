@@ -249,16 +249,23 @@ BigInt BigInt::operator-=(BigInt _a)
 }
 BigInt BigInt::operator*(BigInt _a)
 {
-    BigInt res((size_t)(a.size() + _a.a.size()));
+    BigInt res((size_t)(a.size() + _a.a.size() + 1));
     res.sign = sign * _a.sign;
+    for(size_t i = 0; i < res.a.size(); i++)
+        res.a[i] = 0;
     for(size_t i = 0; i < a.size(); i++)
     {
-        int carry = 0;
-        for(size_t j = 0; j < _a.a.size() || carry; j++)
+        for(size_t j = 0; j < _a.a.size(); j++)
         {
-            long long cur = res.a[i + j] + a[i] * 1ll * (j < _a.a.size() ? _a.a[j] : 0) + carry;
-            res.a[i + j] = int(cur % base);
-            carry = int(cur / base);
+            res.a[i + j] = res.a[i + j] + a[i] * 1ll * _a.a[j];
+        }
+    }
+    for(size_t i = 0; i < res.a.size(); i++)
+    {
+        if(res.a[i] > base)
+        {
+            res.a[i + 1] += res.a[i] / base;
+            res.a[i] %= base;
         }
     }
     res.clearNulls();
