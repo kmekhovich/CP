@@ -262,7 +262,7 @@ BigInt BigInt::operator*(BigInt _a)
     }
     for(size_t i = 0; i < res.a.size(); i++)
     {
-        if(res.a[i] > base)
+        if(res.a[i] >= base)
         {
             res.a[i + 1] += res.a[i] / base;
             res.a[i] %= base;
