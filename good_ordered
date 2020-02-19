@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+#include <ext/rope>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("-O3")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
+using namespace std;
+using namespace __gnu_cxx;
+using namespace __gnu_pbds;
+#define pb push_back
+#define fst first
+#define snd second
+#define all(c) (c).begin(), (c).end()
+typedef long long ll;
+typedef long double ld;
+const ll INF64 = 1e18 + 228;
+const int INF32 = 1e9 + 1337;
+const int MOD = 1e9 + 7;
+const ld eps = 1e-7;
+const int N = 1e3 + 228;
+typedef tree<
+int,
+int,
+less<int>,
+rb_tree_tag,
+tree_order_statistics_node_update> map_t;
+int main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#ifndef __WIN32
+    ifstream cin("input.txt");
+    ofstream cout("output.txt");
+#endif
+
+    map_t x;
+    int n;
+    cin >> n;
+    for(int i = 0; i < n; i++)
+    {
+        int y;
+        cin >> y;
+        x.insert({y, y});
+    }
+    cout << x.find_by_order(1)->snd << "\n";
+    for(auto& it : x)
+        cout << it.fst << " ";
+    return 0;
+}
+/**
+to learn:
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+
+typedef tree<
+int,
+int,
+less<int>,
+rb_tree_tag,
+tree_order_statistics_node_update> map_t;
+*/
