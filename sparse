@@ -14,8 +14,8 @@ const ll INF64 = 1e18 + 228;
 const int INF32 = 1e9 + 1337;
 const int MOD = 1e9 + 7;
 const ld eps = 1e-7;
-const int N = 200005;
-const int logn = 13;
+const int N = 500005;
+const int logn = 17;
 ll a[N];
 ll mn[N][logn];
 ll lg[N];
@@ -28,7 +28,7 @@ ll fnd(ll u, ll v)
 }
 signed main()
 {
-//    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #ifndef __WIN32
     ifstream cin("input.txt");
     ofstream cout("output.txt");
