@@ -1,0 +1,102 @@
+#include <bits/stdc++.h>
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("-O3")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
+using namespace std;
+#define pb push_back
+#define fst first
+#define snd second
+#define all(c) (c).begin(), (c).end()
+typedef long long ll;
+typedef long double ld;
+const ll INF64 = 1e18 + 228;
+const int INF32 = 1e9 + 1337;
+const int MOD = 1e9 + 7;
+const ld eps = 1e-7;
+const int N = 500005;
+const int logn = 17;
+int n;
+vector<ll> a;
+vector<ll> pos;
+vector<ll> pre;
+vector<ll> t;
+void inc(int i, int x)
+{
+    for( ; i < n; i |= (i + 1))
+        t[i] += x;
+}
+ll sum(int r)
+{
+    ll res = 0;
+    for( ; r >= 0; r &= (r + 1), r--)
+        res += t[r];
+    return res;
+}
+ll sum(int l, int r)
+{
+    return sum(r) - sum(l - 1);
+}
+signed main()
+{
+//    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#ifndef __WIN32
+    ifstream cin("input.txt");
+    ofstream cout("output.txt");
+#endif
+
+    cin >> n;
+    a.resize(n);
+    set<ll> c;
+    for(auto& it : a)
+    {
+        cin >> it;
+        c.insert(it);
+    }
+    unordered_map<int, int> code;
+    int counter = 0;
+    for(auto& it : c)
+        code[it] = counter++;
+    for(auto& it : a)
+        it = code[it];
+    pos.resize(counter, -1);
+    pre.resize(n, 0);
+    for(int i = 0; i < n; i++)
+    {
+        pre[i] = pos[a[i]];
+        pos[a[i]] = i;
+    }
+    int m;
+    cin >> m;
+    vector<pair<pair<ll, ll>, int> > z(m);
+    for(int i = 0; i < m; i++)
+    {
+        int a, b;
+        cin >> a >> b;
+        a--; b--;
+        z[i] = {{a, b}, i};
+    }
+    sort(all(z), [](const pair< pair<ll, ll>, int> &a, const pair< pair<ll, ll>, int> &b)
+         {
+             return a.fst.snd == b.fst.snd ? a.fst.fst < b.fst.fst : a.fst.snd < b.fst.snd;
+         });
+    t.resize(n);
+    for(int i = 0; i < n; i++)
+        inc(i, 1);
+    int curr = -1;
+    vector<ll> ans(m);
+    for(int i = 0; i < m; i++)
+    {
+        while(curr != z[i].fst.snd)
+        {
+            curr++;
+            if(pre[curr] != -1)
+                inc(pre[curr], -1);
+        }
+        ans[z[i].snd] = sum(z[i].fst.fst, z[i].fst.snd);
+    }
+    for(auto& it : ans)
+        cout << it << "\n";
+
+    return 0;
+}
